@@ -8,6 +8,12 @@ import java.util.Random;
  * math-simulation of the ball.
  */
 public class Main {
+
+    /**
+     * The method is executed to start the ball-simulation It crates the ball and the field
+     * and stats all processes to simulate the ball movement.
+     * @param args first arg is the width of the field, second one the height of the field
+     */
     public static void main(String[] args) {
         JFrame frame = new JFrame("SEP Einführungsaufgabe 2016");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -19,7 +25,13 @@ public class Main {
         frame.getContentPane().add(panel);
         frame.setVisible(true);
 
-        Ball ball = randomBall(20, val[0], val[1]);
+        Ball ball = Ball.randomBall(20, val[0], val[1]);
+
+        CalcThread calc = new CalcThread(ball, panel.getSize());
+        calc.addObserver(panel);
+
+        Thread thread = new Thread();
+        thread.start();
 
     }
 
@@ -35,7 +47,7 @@ public class Main {
             try{
                 x = Integer.parseInt(args[0]);
                 y = Integer.parseInt(args[1]);
-            } catch (NumberFormatException e){}
+            } catch (NumberFormatException e){ }
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             int width = (int)screenSize.getWidth();
             int height = (int)screenSize.getHeight();
@@ -45,23 +57,6 @@ public class Main {
             }
         }
         return result;
-    }
-
-    /**
-     * Returns a Ball with random position and Speed in a given borderrange.
-     * @param radius the fix radius the ball should have
-     * @param xBorder the maximum width the ball can have
-     * @param yBorder the maximum height the ball can have
-     * @return a random generated Ball
-     */
-    public static Ball randomBall(double radius, int xBorder, int yBorder) {
-        double xPos, yPos, xVec, yVec;
-        Random ran = new Random();
-        xPos = (ran.nextDouble() * (double)xBorder) - 0.6 * radius;
-        yPos = (ran.nextDouble() * (double)yBorder) - 0.6 * radius;
-        // TODO: Vector einbringen
-
-        return new Ball(xPos, yPos, radius);
     }
 }
 
