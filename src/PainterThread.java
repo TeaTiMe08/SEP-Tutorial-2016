@@ -3,18 +3,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Repaints the panel every 25 milliseconds
+ * The PainterThread is part of the View.
+ * It is created in the BallPanel and receives the BallPanel itself
+ * Every 25 milliseconds the BallPanel should be repainted witch is handled in the run()-method.
  */
 public class PainterThread extends Thread {
 
     private BallPanel panel;
-    private boolean doPaint;
 
+    /**
+     * Created a new PainterThread
+     * @param panel the BallPanel passes itself to the PainterThread so it can be repainted.
+     */
     public PainterThread(BallPanel panel){
-        doPaint = true;
         this.panel = panel;
     }
 
+    /**
+     * In this method a Timer is created witch repaints the BallPanel every 25 milliseconds.
+     */
     @Override
     public void run() {
         Timer timer = new Timer(25, new ActionListener() {
@@ -24,21 +31,5 @@ public class PainterThread extends Thread {
             }
         });
         timer.start();
-        /*
-        while(doPaint) {
-            panel.repaint();
-            try{
-                this.sleep(25);
-            } catch (InterruptedException e){}
-        }
-        */
-    }
-
-    public boolean isDoPaint() {
-        return doPaint;
-    }
-
-    public void setDoPaint(boolean doPaint) {
-        this.doPaint = doPaint;
     }
 }

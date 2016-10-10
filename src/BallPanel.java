@@ -13,6 +13,11 @@ public class BallPanel extends JPanel implements Observer {
     private JLabel rollLabel;
     private PainterThread p;
 
+    /**
+     * Creates a new BallPanel
+     * @param width the width the panel should have
+     * @param height the height the panel should have
+     */
     public BallPanel(int width, int height){
         setSize(width, height);
         setBackground(Color.black);
@@ -24,20 +29,23 @@ public class BallPanel extends JPanel implements Observer {
 
         p = new PainterThread(this);
         p.start();
-
     }
 
-    public void stop(){
-        p.setDoPaint(false);
-    }
-
+    /**
+     * The model is gets refreshed. It gets the new Ball from the CalcThread Observable
+     * @param o the CalcThread witch sends the recent ball
+     * @param arg the updated ball
+     */
     @Override
     public void update(Observable o, Object arg) {
-        //TODO: für arg = ball muss doPaint = false;
-        //TODO: arg = Ball, also muss state = arg
         state = (Ball)arg;
+        System.out.println("update: " + ((Ball)arg).toString());
     }
 
+    /**
+     * This method paints the ball and paints the label for the movement of the ball
+     * @param g the graphical surface on witch is painted on
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

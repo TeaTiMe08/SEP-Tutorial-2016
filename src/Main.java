@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
 
 /**
  * The main class creating all the components needed to start the simulation.
@@ -27,10 +26,12 @@ public class Main {
 
         Ball ball = Ball.randomBall(20, val[0], val[1]);
 
+        // a new CalcThread is created, with a random ball
         CalcThread calc = new CalcThread(ball, panel.getSize());
         calc.addObserver(panel);
 
-        Thread thread = new Thread();
+        // the CalcThread is packed in a Thread that is can start parallel
+        Thread thread = new Thread(calc);
         thread.start();
 
     }

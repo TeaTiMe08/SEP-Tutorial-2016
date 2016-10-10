@@ -1,5 +1,4 @@
 import java.util.Random;
-import java.util.Vector;
 
 /**
  * The ball class holds the position on the ball and the speed represented by
@@ -9,9 +8,15 @@ import java.util.Vector;
 public class Ball {
     double xPos, yPos; // The position in the field
     double xVec, yVec; // The speed the ball has. In Pixel per Calculation Step
-    double radius;
-    boolean isMoving;
+    double radius; // the size of the ball
+    boolean isMoving; // of the ball is currently moving or standing
 
+    /**
+     * A still-standing Ball is created
+     * @param xPos the x-position of the ball
+     * @param yPos the y-position of the ball
+     * @param radius the radius of the ball
+     */
     public Ball(double xPos, double yPos, double radius) {
         this.xPos = xPos;
         this.yPos = yPos;
@@ -19,6 +24,14 @@ public class Ball {
         this.isMoving = false;
     }
 
+    /**
+     * A moving Ball is created
+     * @param xPos the x-position of the ball
+     * @param yPos the y-position of the ball
+     * @param xVec the x-vector of the ball
+     * @param yVec the y-vector of the ball
+     * @param radius the radius of the ball
+     */
     public Ball(double xPos, double yPos, double xVec, double yVec, double radius) {
         this.xPos = xPos;
         this.yPos = yPos;
@@ -85,5 +98,10 @@ public class Ball {
 
     public void setMoving(boolean moving) {
         isMoving = moving;
+    }
+
+    public String toString() {
+        return "xPos: " + xPos + " |yPos: " + yPos + " |xVec: " + xVec + " |yVec: " + yVec
+                + " |rad: " + radius;
     }
 }
